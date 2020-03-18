@@ -5,9 +5,9 @@ services:
       ports:
           - '80:80'
       volumes:
-          - ./nginx:/etc/nginx/conf.d
-          - ./logs/nginx:/var/log/nginx
-          - ./wordpress:/var/www/html
+          - ${WEBAPP_STORAGE_HOME}/nginx:/etc/nginx/conf.d
+          - ${WEBAPP_STORAGE_HOME}/logs/nginx:/var/log/nginx
+          - ${WEBAPP_STORAGE_HOME}/wordpress:/var/www/html
       links:
           - wordpress
       restart: always
@@ -16,7 +16,7 @@ services:
     ports:
         - '3306:3306'
     volumes:
-        - ./db-data:/var/lib/mysql
+        - ${WEBAPP_STORAGE_HOME}/db-data:/var/lib/mysql
     environment:
         - MYSQL_ROOT_PASSWORD=aqwe123
     restart: always
@@ -25,7 +25,7 @@ services:
     ports:
         - '9000:9000'
     volumes:
-        - ./wordpress:/var/www/html
+        - ${WEBAPP_STORAGE_HOME}/wordpress:/var/www/html
     environment:
         - WORDPRESS_DB_NAME=wpdb
         - WORDPRESS_TABLE_PREFIX=wp_
